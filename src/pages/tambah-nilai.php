@@ -117,8 +117,9 @@ if (isset($_GET['task_id'])) {
         <!-- Score -->
         <div class="float-right flex items-center space-x-4">
           <label for="score" class="text-sm font-medium text-gray-600 w-1/4">Nilai : </label>
-          <input type="number" id="score" name="score" value="<?= htmlspecialchars($task['score']); ?>" placeholder="Masukkan Nilai" class="w-3/4 px-4 py-2 border rounded-sm" required>
+          <input type="number" id="score" name="score" value="<?= htmlspecialchars($task['score']); ?>" placeholder="Masukkan Nilai" class="w-3/4 px-4 py-2 border rounded-sm" required max="100" oninput="validateScore(this)">
         </div>
+
 
         <!-- Title -->
         <p class="w-2/4 text-lg">Judul : <?= htmlspecialchars($task['title']); ?></p>
@@ -149,6 +150,15 @@ if (isset($_GET['task_id'])) {
       </form>
     </div>
   </div>
+  <script>
+  function validateScore(input) {
+    if (input.value > 100) {
+      input.setCustomValidity('Nilai tidak boleh lebih dari 100');
+    } else {
+      input.setCustomValidity('');
+    }
+  }
+</script>
 </body>
 
 </html>

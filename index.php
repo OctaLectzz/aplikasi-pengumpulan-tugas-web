@@ -42,6 +42,8 @@ route('/kode-referral', function () {
   include 'src/pages/kode-referral.php';
 });
 
+
+
 route('/tambah-nilai', function () {
   if (!isset($_SESSION['user'])) {
     header('Location: /login');
@@ -56,6 +58,15 @@ route('/tugas-saya', function () {
     exit;
   }
   include 'src/pages/tugas-saya.php';
+});
+
+
+route('/edit', function () {
+  if (!isset($_SESSION['user'])) {
+    header('Location: /login');
+    exit;
+  }
+  include 'src/pages/edit.php';
 });
 
 route('/riwayat-tugas', function () {
