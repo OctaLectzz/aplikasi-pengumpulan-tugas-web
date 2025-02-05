@@ -5,32 +5,20 @@ if (session_status() == PHP_SESSION_NONE) {
   session_start();
 }
 
-<<<<<<< HEAD
 // Cek apakah user sudah login
-=======
->>>>>>> 81025b9a078865f988542b76951a024fcc4bfeb4
 if (!isset($_SESSION['user'])) {
   header('Location: /login');
   exit;
 }
-<<<<<<< HEAD
 
 // Cek apakah role user adalah "Mahasiswa"
-=======
->>>>>>> 81025b9a078865f988542b76951a024fcc4bfeb4
 if ($_SESSION['role'] != "Mahasiswa") {
   header('Location: /data-ruang');
   exit;
 }
 
 $user = $_SESSION['user'];
-<<<<<<< HEAD
 $id = isset($_GET['id']) ? $_GET['id'] : null;
-=======
-
-$id = isset($_GET['id']) ? $_GET['id'] : null;
-
->>>>>>> 81025b9a078865f988542b76951a024fcc4bfeb4
 $status = "";
 $message = "";
 
@@ -46,10 +34,7 @@ if ($id) {
 
     $referral_id = $task['referral_id'];
 
-<<<<<<< HEAD
     // Ambil kode referral
-=======
->>>>>>> 81025b9a078865f988542b76951a024fcc4bfeb4
     $referral_query = "SELECT referral_code FROM referrals WHERE id = ?";
     $referral_stmt = $conn->prepare($referral_query);
     $referral_stmt->bind_param('i', $referral_id);
@@ -61,11 +46,7 @@ if ($id) {
       $referral_code = $referral['referral_code'];
     } else {
       $status = "failed";
-<<<<<<< HEAD
       $message = "Kode Referral tidak ditemukan.";
-=======
-      $message = "Kode Referral tidak ditemukan di table referrals.";
->>>>>>> 81025b9a078865f988542b76951a024fcc4bfeb4
     }
 
     $date = $task['date'];
@@ -81,11 +62,6 @@ if ($id) {
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $user_id = $_SESSION['user']['id'];
   $referral_code = $_POST['referral_code'];
-<<<<<<< HEAD
-=======
-  $date = $_POST['date'];
-  $title = $_POST['title'];
->>>>>>> 81025b9a078865f988542b76951a024fcc4bfeb4
   $answer = $_POST['answer'];
   $file_name = null;
 
@@ -97,15 +73,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
   if ($result->num_rows > 0) {
     $referral = $result->fetch_assoc();
-<<<<<<< HEAD
     $title = $referral['title'];
 
     // File upload handling
-=======
-
-    $title = $referral['title'];
-
->>>>>>> 81025b9a078865f988542b76951a024fcc4bfeb4
     if (!empty($_FILES['file']['name'])) {
       $allowed_extensions = ['pdf', 'docx', 'jpg', 'png'];
       $file_tmp = $_FILES['file']['tmp_name'];
@@ -116,14 +86,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
       if (!in_array($file_ext, $allowed_extensions)) {
         $status = "failed";
-<<<<<<< HEAD
         $message = "Format file tidak diizinkan. Hanya PDF, DOCX, JPG, dan PNG.";
       } elseif ($file_size > 5 * 1024 * 1024) {
-=======
-        $message = "Format file tidak diizinkan. Hanya PDF, DOCX, JPG, dan PNG yang diperbolehkan.";
-      }
-      elseif ($file_size > 5 * 1024 * 1024) {
->>>>>>> 81025b9a078865f988542b76951a024fcc4bfeb4
         $status = "failed";
         $message = "Ukuran file terlalu besar. Maksimal 5MB.";
       } else {
@@ -212,22 +176,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           </div>
 
           <!-- Date -->
-<<<<<<< HEAD
           <input disabled type="date" id="date" name="date" class="w-1/4 px-4 py-1 mt-1 border rounded-sm focus:ring-blue-400" value="<?= htmlspecialchars($date); ?>" required>
           <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?? '' ?>">
-=======
-          <input disabled    type="date" id="date" name="date" class="w-1/4 px-4 py-1 mt-1 border rounded-sm focus:ring-blue-400" value="<?= htmlspecialchars($date); ?>" required>
->>>>>>> 81025b9a078865f988542b76951a024fcc4bfeb4
         </div>
 
         <!-- Referral Code -->
         <div class="flex items-center space-x-4 my-8">
           <label for="referral_code" class="text-sm font-medium text-gray-600 w-1/4">Kode Referral : </label>
-<<<<<<< HEAD
           <input type="text" name="referral_code" value="<?= htmlspecialchars($referral_code); ?>" readonly class="w-full px-4 py-2 border rounded bg-gray-200">
-=======
-          <input disabled type="text" id="referral_code" name="referral_code" class="w-3/4 px-4 py-2 border rounded-sm" value="<?= htmlspecialchars($referral_code); ?>" required>
->>>>>>> 81025b9a078865f988542b76951a024fcc4bfeb4
         </div>
 
         <!-- Title -->
@@ -258,8 +214,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   </div>
 </body>
 
-<<<<<<< HEAD
 </html>
-=======
-</html>
->>>>>>> 81025b9a078865f988542b76951a024fcc4bfeb4
