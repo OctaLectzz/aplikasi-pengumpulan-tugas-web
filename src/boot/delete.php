@@ -1,11 +1,17 @@
 <?php
 include './config.php';
 
-// Cek apakah ada ID yang dikirimkan melalui POST
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['id'])) {
   $referral_id = $_POST['id'];
 
-  // Query untuk menghapus data berdasarkan ID
+  // Hapus semua tasks yang terkait
+  $deleteTasksQuery = "DELETE FROM tasks WHERE referral_id = ?";
+  $stmtTasks = $conn->prepare($deleteTasksQuery);
+  $stmtTasks->bind_param('i', $referral_id);
+  $stmtTasks->execute();
+  $stmtTasks->close();
+
+  // Hapus referral setelah semua tasks dihapus
   $query = "DELETE FROM referrals WHERE id = ?";
   $stmt = $conn->prepare($query);
   $stmt->bind_param('i', $referral_id);
@@ -21,7 +27,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['id'])) {
   $stmt->close();
   $conn->close();
 
-  // Mengarahkan kembali ke halaman sebelumnya setelah operasi selesai
   header("Location: /data-ruang");
   exit();
 }

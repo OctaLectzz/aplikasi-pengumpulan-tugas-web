@@ -150,11 +150,12 @@ $conn->close();
                 <input type="text" id="title" name="title" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" required>
               </div>
 
-              <!-- date -->
-              <div class="w-2/4 m-4">
-                <label for="date" class="block mb-2 text-sm font-medium text-gray-900">Tanggal : </label>
-                <input type="date" id="date" name="date" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" required>
-              </div>
+             <!-- date -->
+            <div class="w-2/4 m-4">
+              <label for="date" class="block mb-2 text-sm font-medium text-gray-900">Tanggal : </label>
+              <input type="date" id="date" name="date" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" required 
+                    min="<?php echo date('Y-m-d'); ?>">
+            </div>
             </div>
 
             <div class="flex items-center">

@@ -124,8 +124,16 @@ $conn->close();
             <span id="modalAnswer"></span>
           </p>
           <div class="flex justify-end mt-4">
-            <button onclick="closeModal()" class="cursor-pointer px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600">Tutup</button>
-          </div>
+      <!-- Tombol Edit -->
+      <a id="editButton" href="#" class="hidden cursor-pointer px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 mr-2">
+        Edit
+      </a>
+      
+      <!-- Tombol Tutup -->
+      <button onclick="closeModal()" class="cursor-pointer px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600">
+        Tutup
+      </button>
+    </div>
         </div>
       </div>
 
@@ -133,17 +141,28 @@ $conn->close();
   </div>
 
   <script>
-    function openModal(id, title, date, answer) {
-      document.getElementById('modalTitle').textContent = title;
-      document.getElementById('modalDate').textContent = date;
-      document.getElementById('modalAnswer').textContent = answer;
-      document.getElementById('detailModal').classList.remove('hidden');
+  function openModal(id, title, date, answer) {
+    document.getElementById("modalTitle").textContent = title;
+    document.getElementById("modalDate").textContent = date;
+    document.getElementById("modalAnswer").textContent = answer;
+
+    const today = new Date().toISOString().split('T')[0];
+
+    const editButton = document.getElementById("editButton");
+    if (date >= today) {
+      editButton.href = "/edit?id=" + id;
+      editButton.classList.remove("hidden");
+    } else {
+      editButton.classList.add("hidden");
     }
 
-    function closeModal() {
-      document.getElementById('detailModal').classList.add('hidden');
-    }
-  </script>
+    document.getElementById("detailModal").classList.remove("hidden");
+  }
+
+  function closeModal() {
+    document.getElementById("detailModal").classList.add("hidden");
+  }
+</script>
 </body>
 
 </html>

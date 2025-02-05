@@ -19,7 +19,7 @@ if (isset($_GET['task_id'])) {
   $task_id = $_GET['task_id'];
 
   // Query to get task details based on task_id
-  $query = "SELECT tasks.id, users.nim, users.username, tasks.date, referrals.referral_code, tasks.title, tasks.score, tasks.comment, tasks.file 
+  $query = "SELECT tasks.id, users.nim, users.username, tasks.date, referrals.referral_code, tasks.title, tasks.score, tasks.answer, tasks.file 
   FROM tasks 
   JOIN users ON tasks.user_id = users.id 
   JOIN referrals ON tasks.referral_id = referrals.id 
@@ -117,15 +117,16 @@ if (isset($_GET['task_id'])) {
         <!-- Score -->
         <div class="float-right flex items-center space-x-4">
           <label for="score" class="text-sm font-medium text-gray-600 w-1/4">Nilai : </label>
-          <input type="number" id="score" name="score" value="<?= htmlspecialchars($task['score']); ?>" placeholder="Masukkan Nilai" class="w-3/4 px-4 py-2 border rounded-sm" required>
+          <input type="number" id="score" name="score" value="<?= htmlspecialchars($task['score']); ?>" placeholder="Masukkan Nilai" class="w-3/4 px-4 py-2 border rounded-sm" required max="100" oninput="validateScore(this)">
         </div>
+
 
         <!-- Title -->
         <p class="w-2/4 text-lg">Judul : <?= htmlspecialchars($task['title']); ?></p>
 
-        <!-- Comment -->
+        <!-- Answer -->
         <div class="relative my-8">
-          <textarea id="comment" name="comment" rows="6" class="w-full px-4 py-2 border rounded-sm" required><?= htmlspecialchars($task['comment']); ?></textarea>
+          <textarea id="answer" name="answer" rows="6" class="w-full px-4 py-2 border rounded-sm" readonly><?= htmlspecialchars($task['answer']); ?></textarea>
         </div>
 
         <div class="flex justify-end space-x-6 my-8">
@@ -149,6 +150,15 @@ if (isset($_GET['task_id'])) {
       </form>
     </div>
   </div>
+  <script>
+    function validateScore(input) {
+      if (input.value > 100) {
+        input.setCustomValidity('Nilai tidak boleh lebih dari 100');
+      } else {
+        input.setCustomValidity('');
+      }
+    }
+  </script>
 </body>
 
 </html>
